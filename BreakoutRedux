@@ -1,0 +1,66 @@
+import string
+
+def count_words_in_file(filepath):
+    """
+    Reads a file, counts the frequency of each word, and returns a dictionary.
+    """
+    word_counts = {}
+
+    try:
+        # 1. File Input/Output (I/O)
+        with open(filepath, 'r') as file:
+            text = file.read()
+    except FileNotFoundError:
+        print(f"Error: The file '{filepath}' was not found.")
+        return word_counts
+
+    # 2. Text Preprocessing
+    # Convert to lowercase
+    text = text.lower()
+    
+    # Remove punctuation using a translation table
+    # This is more efficient than looping through every character
+    translator = str.maketrans('', '', string.punctuation)
+    text = text.translate(translator)
+
+    # 3. Splitting and Counting (Data Structure: Dictionary)
+    words = text.split()
+
+    for word in words:
+        if word: # Ensure we don't count empty strings from multiple spaces
+            # Use dictionary get() method for efficient counting
+            # If word exists, it gets its current count; otherwise, it starts at 0
+            word_counts[word] = word_counts.get(word, 0) + 1
+            
+    return word_counts
+
+# --- Main Program Logic ---
+FILE_PATH = "sample_text.txt"
+
+# To run this script, you must create a file named 'sample_text.txt'
+# in the same directory as this script.
+# Example content for sample_text.txt:
+# "Python is a great programming language. Python is easy to learn."
+#
+# Once you create the file, run the script.
+
+results = count_words_in_file(FILE_PATH)
+
+if results:
+    print(f"--- Word Frequency Results for '{FILE_PATH}' ---")
+    
+    # Iterate through the dictionary and print results
+    for word, count in results.items():
+        print(f"'{word}': {count}")
+
+# Expected Output (if using example content above):
+# --- Word Frequency Results for 'sample_text.txt' ---
+# 'python': 2
+# 'is': 2
+# 'a': 1
+# 'great': 1
+# 'programming': 1
+# 'language': 1
+# 'easy': 1
+# 'to': 1
+# 'learn': 1
