@@ -1,42 +1,11 @@
-def get_user_list():
-    """Reads a space-separated string of numbers and returns a list of integers."""
-    try:
-        input_str = input("Enter numbers separated by spaces (e.g., 5 2 8 1): ")
-        # Convert the space-separated string into a list of integers
-        num_list = [int(item) for item in input_str.split()]
-        return num_list
-    except ValueError:
-        print("Invalid input. Please enter only integers.")
-        return []
+numbers = []
 
-def sort_list_bubble(data_list):
-    """
-    Sorts a list of numbers using the Bubble Sort algorithm.
-    Note: We make a copy of the list so we don't modify the original list in place.
-    """
-    n = len(data_list)
-    # Create a copy to prevent modifying the original list passed to the function
-    current_list = data_list[:]
+# Input 5 numbers
+for i in range(5):
+    n = float(input(f"Enter number {i+1}: "))
+    numbers.append(n)
 
-    # Traverse through all list elements (n-1 passes)
-    for i in range(n - 1):
-        # Last i elements are already in place
-        for j in range(n - 1 - i):
-            # Traverse the list from 0 to n-i-1
-            # Swap if the element found is greater than the next element
-            if current_list[j] > current_list[j + 1]:
-                current_list[j], current_list[j + 1] = current_list[j + 1], current_list[j]
+# Sort the list
+numbers.sort()
 
-    return current_list
-
-# --- Main Program Logic ---
-original_list = get_user_list()
-
-if original_list:
-    # Use the sorting function
-    sorted_list = sort_list_bubble(original_list)
-    
-    # Display results
-    print("\n--- Sorting Results ---")
-    print(f"Original List: {original_list}")
-    print(f"Sorted List:   {sorted_list}")
+print("Numbers from smallest to largest:", numbers)
