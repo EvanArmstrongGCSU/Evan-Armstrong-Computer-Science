@@ -1,0 +1,22 @@
+from datetime import datetime
+
+birthday = input("Enter your birthday (DD/MM/YYYY): ")
+
+try:
+    # Convert the input into a date object
+    birth_date = datetime.strptime(birthday, "%d/%m/%Y")
+    
+    # Get today's date
+    today = datetime.today()
+
+    # Calculate age
+    age = today.year - birth_date.year
+
+    # Adjust if birthday hasn’t occurred this year
+    if (today.month, today.day) < (birth_date.month, birth_date.day):
+        age -= 1
+
+    print("You are", age, "years old.")
+
+except ValueError:
+    print("Invalid date format! Please use DD/MM/YYYY.")
